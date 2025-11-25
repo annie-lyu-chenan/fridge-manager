@@ -34,7 +34,7 @@
         </nav>
     </header>
 
-    <main class = "index">
+    <main class = "index-freezer">
         <div id = "intro-text">
             <h1>Know your fridge.</h1>
             <p>Clarity in the fridge brings clarity in life. Track your groceries, reduce waste, and bring a sense of order to your life with FridgeMate. </p>
@@ -56,19 +56,27 @@
         <div id="homepage-stock">
             <section class = "in-stock">
               <h3>In Stock</h3>
-              <div class = "stock-item"></div>
+              <div class = "stock-item">
+                  <span class = "item-name"></span>
+                  <progress value = "" max = "100"></progress>
+                  <span class = "item-amount"></span>
+              </div>
             </section>
 
             <section class = "expire">
               <h3>Save Me This Week!!!</h3>
-              <div class = "expire-item"></div>
+              <div class = "expire-item">
+                  <span class = "item-name"></span>
+                  <progress value = "" max = "100"></progress>
+                  <span class = "item-status"></span>
+              </div>
             </section>
 
             <section class = "info">
-                <figure>
-                    <img src="images/food.png" alt="Image of noodles, pizza, and hamburger" />
-                </figure>
-                <a href = "calculator.html">Learn more about the food you have saved. </a>
+              <figure>
+                <img src="images/food.png" alt="Image of noodles, pizza, and hamburger" />
+              </figure>
+              <a href = "calculator.html">Learn more about the food you have saved. </a>
             </section>
         </div>
 
