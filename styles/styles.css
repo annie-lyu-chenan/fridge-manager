@@ -272,3 +272,13 @@ main.about {
     margin: 0; 
     padding: 0; 
 }
+
+@media (max-width: 768px) {
+    #full-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: space-between;
+        gap: 0.5rem;
+    }
+}
