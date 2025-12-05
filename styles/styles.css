@@ -142,8 +142,8 @@ button:hover {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
     grid-template-areas:
-      "stock-item expire"
-      "info expire";
+        "expire stock-item"
+        "button button";
     gap: 2rem;
 }
 
@@ -163,6 +163,7 @@ div.stock-item {
     padding: 1.5rem;
 }
 
+/*
 section.info {
     grid-area: info;
     border-radius: 5px;
@@ -186,8 +187,10 @@ section.info figure img{
     width: 150px;
     height: auto;
 }
+*/
 
 div.tab-container {
+    grid-area: button;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -240,6 +243,7 @@ main.about {
     align-items: space-between;
     justify-content: center; 
     gap: 1rem;
+    margin-top: 2rem;
 }
 
 #about-author {
@@ -249,6 +253,7 @@ main.about {
     align-items: space-between;
     justify-content: center;
     gap: 1rem;
+    margin-top: 2rem;
 }
 
 #about-project figure img,
@@ -264,5 +269,6 @@ main.about {
     font-weight: 400;
     font-size: 0.9rem;
     color: #8C8C8C;
+    margin: 0; 
+    padding: 0; 
 }
-

@@ -43,34 +43,62 @@
 
         <div id="search-bar">
             <form id="initial-state">
-                <input type="text" placeholder="Add what's in your bag today. ">
-                <button>Get Started</button>
+              <input type="text" placeholder="Add what's in your bag today. " readonly>
             </form>
 
             <form id="dropdown-state" style="display: none">
-                <select></select>
-                <button>Add to List</button>
+                <select id = 'category-select'>
+                  <option id = 'baby-food'>Baby Food</option>
+                  <option id = 'baked-goods'>Baked Goods</option>
+                  <option id = 'beverages'>Beverages</option>
+                  <option id = 'dairy-and-eggs'>Dairy Products & Eggs</option>
+                  <option id = 'grain-and-beans'>Grains, Beans & Pasta</option>
+                  <option id = 'meat'>Meat</option>
+                  <option id = 'poultry'>Poultry</option>
+                  <option id = 'produce'>Produce</option>
+                  <option id = 'seafood'>Seafood</option>
+                </select>
             </form>
+
+            <div id = 'full-list' style="display: none">
+              <form id = 'tags'>
+                <select id = 'alphabet-select'>
+                  <option value = 'ad'>A-D</option>
+                  <option value = 'eh'>E-H</option>
+                  <option value = 'il'>I-L</option>
+                  <option value = 'mp'>M-P</option>
+                  <option value = 'qt'>Q-T</option>
+                  <option value = 'ux'>U-X</option>
+                  <option value = 'yz'>Y-Z</option>
+                </select>
+              </form>
+
+              <select id = 'alphabet-list'></select>
+
+              <button id = 'add-btn'>Add Item</button>
+            </div>
         </div>
 
         <div id="homepage-stock">
-            <section class = "in-stock">
-              <h3>In Stock</h3>
-              <div class = "stock-item"></div>
-            </section>
+          <section class = "in-stock">
+            <h3>In Stock</h3>
+            <div class = "stock-item"></div>
+          </section>
 
-            <section class = "expire">
-              <h3>Save Me This Week!!!</h3>
-              <div class = "expire-item"></div>
-            </section>
+          <section class = "expire">
+            <h3>Save Me This Week!!!</h3>
+            <div class = "expire-item"></div>
+          </section>
 
-            <section class = "info">
-                <figure>
-                    <img src="images/food.png" alt="Image of noodles, pizza, and hamburger" />
-                </figure>
-                <a href = "calculator.html">Learn more about the food you have saved. </a>
-            </section>
+<!--
+          <section class = "info">
+              <figure>
+                  <img src="images/food.png" alt="Image of noodles, pizza, and hamburger" />
+              </figure>
+              <a href = "calculator.html">Learn more about the food you have saved. </a>
+          </section>
         </div>
+-->
 
         <div class = "tab-container" id = "fridge-freezer">
             <a href = "index.html">
