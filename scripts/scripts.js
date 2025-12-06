@@ -65,8 +65,9 @@ function alphabetList(event) {
 
                 if (allCategoryID.includes(categoryID)) {
                     const itemName = productArray.find(obj => obj.Name !== undefined).Name;
-                    const shelfLifeMin = productArray.find(obj => obj.DOP_Refrigerate_Min !== undefined)?.DOP_Refrigerate_Min ?? 'N/A';
-                    const shelfLifeMax = productArray.find(obj => obj.DOP_Refrigerate_Max !== undefined)?.DOP_Refrigerate_Max ?? 'N/A';
+                    const shelfLifeMin = productArray.find(obj => obj.DOP_Refrigerate_Min !== undefined)?.DOP_Refrigerate_Min;
+                    if (!shelfLifeMin) return;
+                    const shelfLifeMax = productArray.find(obj => obj.DOP_Refrigerate_Max !== undefined)?.DOP_Refrigerate_Max;
                     const subName = productArray.find(obj => obj.Name_subtitle !== undefined)?.Name_subtitle ?? '';
                     const metricUnit = productArray.find(obj => obj.DOP_Refrigerate_Metric !== undefined)?.DOP_Refrigerate_Metric ?? '';
 
@@ -92,25 +93,53 @@ function alphabetList(event) {
             const tagValue = letterSelect.options[letterSelect.selectedIndex].value;
             const selectedRange = rangeMap[tagValue];
 
-            fullListArray.forEach(item => {
+            const matchedItems = fullListArray.filter(item => {
                 const firstLetter = item.name.charAt(0).toLowerCase();
-                if (selectedRange.includes(firstLetter)) {
+                return selectedRange.includes(firstLetter);
+            });
+
+            if (matchedItems.length === 0) {
+                const option = document.createElement('option');
+                option.value = 'no-item';
+                option.textContent = 'No refrigerated items available.';
+                letterList.appendChild(option);
+            }
+            else {
+                matchedItems.forEach(item => {
                     const option = document.createElement('option');
                     option.value = item.name;
                     if (item.subName) {
-                        option.textContent = `${item.name}: ${item.subName} - Suggested Shelf Life: ${item.min} to ${item.max} ${item.metric}`;
+                        if (item.min == item.max) {
+                            option.textContent = `${item.name}: ${item.subName} - Suggested Shelf Life: ${item.min} ${item.metric}`;
+                            letterList.appendChild(option);
+                            return;
+                        }
+                        else {
+                            option.textContent = `${item.name}: ${item.subName} - Suggested Shelf Life: ${item.min} to ${item.max} ${item.metric}`;
+                            letterList.appendChild(option);
+                            return;
+                        }
                     }
                     else {
-                        option.textContent = `${item.name} - Suggested Shelf Life: ${item.min} to ${item.max} ${item.metric}`;
+                        if (item.min == item.max) {
+                            option.textContent = `${item.name} - Suggested Shelf Life: ${item.min} ${item.metric}`;
+                            letterList.appendChild(option);
+                            return;
+                        }
+                        else {
+                            option.textContent = `${item.name} - Suggested Shelf Life: ${item.min} to ${item.max} ${item.metric}`;
+                            letterList.appendChild(option);
+                            return;
+                        }
                     }
-                    letterList.appendChild(option);
-                }
-            });
+                });
+                
+            }
+        });
 
-            initialForm.style.display = 'none';
-            dropdownForm.style.display = 'none';
-            addList.style.display = 'flex'; 
-        })
+        initialForm.style.display = 'none';
+        dropdownForm.style.display = 'none';
+        addList.style.display = 'flex'; 
 }
 
 dropdownSelect.addEventListener('change', alphabetList);
@@ -136,7 +165,7 @@ function pushItemToStock(event) {
 
     const newItem = {
         name: itemName,
-        subName: subName,
+        subName: subName ?? '',
         shelfLifeMin: Number(minLife),
         shelfLifeMax: Number(maxLife), 
         lifeMetric: lifeMetric,
@@ -149,7 +178,9 @@ function pushItemToStock(event) {
 
 addBtn.addEventListener('click', pushItemToStock);
 
-function cancelAddItem() {
+function cancelAddItem(event) {
+    event.preventDefault();
+
     addList.style.display = 'none';
     initialForm.style.display = 'block';
 }
@@ -171,13 +202,38 @@ function renderStock() {
         stockFridge.forEach(item => {
             const itemElement = document.createElement('div');
             itemElement.className = 'item-instock';
+            document.querySelector('.stock-item').appendChild(itemElement);
+
+            const contentBox = document.createElement('div');
+            contentBox.className = 'item-content';
+            itemElement.appendChild(contentBox);
 
             const itemName = document.createElement('span');
             itemName.className = 'item-name';
-            itemName.textContent = `${item.name}: ${item.subName}`;
+            if (item.subName) {
+                itemName.textContent = `${item.name}: ${item.subName}`;
+            }
+            else {
+                itemName.textContent = `${item.name}`;
+            }
+            contentBox.appendChild(itemName);
 
-            itemElement.appendChild(itemName);
-            document.querySelector('.stock-item').appendChild(itemElement);
+            const itemShelfLife = document.createElement('div');
+            itemShelfLife.className = 'shelf-life-bar-container';
+            const shelfLifeBar = document.createElement('div');
+            shelfLifeBar.className = 'shelf-life-bar-progress';
+
+            shelfLifeBar.style.width = `${(item.shelfLifeRemaining / item.shelfLifeMax) * 100}%`;
+
+            contentBox.appendChild(itemShelfLife);
+            itemShelfLife.appendChild(shelfLifeBar);
+
+            /*
+            const shelfLifeLeft = document.createElement('span');
+            shelfLifeLeft.className = 'shelf-life-left';
+            shelfLifeLeft.textContent = `${item.shelfLifeRemaining} ${item.lifeMetric} before expiration`;
+            itemElement.appendChild(shelfLifeLeft);
+            */
         });
     };
 };
@@ -197,13 +253,31 @@ function renderExpire() {
         expireFridge.forEach(item => {
             const itemElement = document.createElement('div');
             itemElement.className = 'item-expiring';
+            document.querySelector('.expire-item').appendChild(itemElement);
+
+            const contentBox = document.createElement('div');
+            contentBox.className = 'item-content';
+            itemElement.appendChild(contentBox);
 
             const itemName = document.createElement('span');
             itemName.className = 'item-name';
-            itemName.textContent = `${item.name}`;
+            if (item.subName) {
+                itemName.textContent = `${item.name}: ${item.subName}`;
+            }
+            else {
+                itemName.textContent = `${item.name}`;
+            }
+            contentBox.appendChild(itemName);
 
-            itemElement.appendChild(itemName);
-            document.querySelector('.expire-item').appendChild(itemElement);
+            const itemShelfLife = document.createElement('div');
+            itemShelfLife.className = 'shelf-life-bar-container';
+            const shelfLifeBar = document.createElement('div');
+            shelfLifeBar.className = 'shelf-life-bar-progress';
+
+            shelfLifeBar.style.width = `${(item.shelfLifeRemaining / item.shelfLifeMax) * 100}%`;
+
+            contentBox.appendChild(itemShelfLife);
+            itemShelfLife.appendChild(shelfLifeBar);
         });
     };
 };
@@ -226,6 +300,4 @@ function updateShelfLife() {
             expireFridge.push(item);
         }
     });
-    renderStock();
-    renderExpire();
 }
