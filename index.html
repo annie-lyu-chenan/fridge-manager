@@ -27,15 +27,16 @@
       
         <nav>
             <ul>
-                <li><a href = "index.html">Home</a></li>
-                <li><a href = "https://www.figma.com/design/atDvsj2wyJdp6e204W1uOP/Wireframes?node-id=0-1&t=xlZVMmpzdAMhpnxZ-1">Project Documents</a></li>
-                <li><a href = "about.html">About</a></li>
+                <li id = 'home'><a href = "index.html">Home</a></li>
+                <li id = 'doc'><a href = "https://www.figma.com/design/atDvsj2wyJdp6e204W1uOP/Wireframes?node-id=0-1&t=xlZVMmpzdAMhpnxZ-1">Documents</a></li>
+                <li id = 'info'><a href = "about.html">About</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class = "index">
-        <div id = "intro-text">
+    <main>
+        <div class = "index">
+          <div id = "intro-text">
             <h1>Know your fridge.</h1>
             <p>Clarity in the fridge brings clarity in life. Track your groceries, reduce waste, and bring a sense of order to your life with FridgeMate. </p>
         </div>
@@ -60,23 +61,26 @@
                 </select>
             </form>
 
-            <div id = 'full-list' style="display: none">
-              <form id = 'tags'>
-                <select id = 'alphabet-select'>
-                  <option value = 'ad'>A-D</option>
-                  <option value = 'eh'>E-H</option>
-                  <option value = 'il'>I-L</option>
-                  <option value = 'mp'>M-P</option>
-                  <option value = 'qt'>Q-T</option>
-                  <option value = 'ux'>U-X</option>
-                  <option value = 'yz'>Y-Z</option>
-                </select>
-              </form>
+            <form id = 'full-list' style="display: none">
+              <select id = 'alphabet-select'>
+                <option value = 'ad'>A-D</option>
+                <option value = 'eh'>E-H</option>
+                <option value = 'il'>I-L</option>
+                <option value = 'mp'>M-P</option>
+                <option value = 'qt'>Q-T</option>
+                <option value = 'ux'>U-X</option>
+                <option value = 'yz'>Y-Z</option>
+              </select>
 
               <select id = 'alphabet-list'></select>
+              
+              <div class = 'button-container'>
+                <button id = 'add-btn'>Add Item</button>
+                <button id = 'cancel-btn'>Cancel</button>
+              </div>
+            
+            </form>
 
-              <button id = 'add-btn'>Add Item</button>
-            </div>
         </div>
 
         <div id="homepage-stock">
@@ -89,6 +93,7 @@
             <h3>Save Me This Week!!!</h3>
             <div class = "expire-item"></div>
           </section>
+        </div>
 
 <!--
           <section class = "info">

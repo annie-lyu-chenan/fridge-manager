@@ -4,11 +4,11 @@ const inputWord = document.querySelector('#initial-state input');
 const initialForm = document.querySelector('#initial-state');
 const dropdownForm = document.querySelector('#dropdown-state');
 const dropdownSelect = document.querySelector('#dropdown-state select');
-const addBtn = document.querySelector('#full-list button');
+const addBtn = document.querySelector('#full-list #add-btn');
 const addList = document.querySelector('#full-list');
-const fullListForm = document.querySelector('#tags');
-const letterSelect = document.querySelector('#tags select');
+const letterSelect = document.querySelector('#alphabet-select');
 const letterList = document.querySelector('#alphabet-list');
+const cancelBtn = document.querySelector('#full-list #cancel-btn');
 /*stock management*/
 let expireFridge = [];
 let expireFreezer = [];
@@ -67,11 +67,15 @@ function alphabetList(event) {
                     const itemName = productArray.find(obj => obj.Name !== undefined).Name;
                     const shelfLifeMin = productArray.find(obj => obj.DOP_Refrigerate_Min !== undefined)?.DOP_Refrigerate_Min ?? 'N/A';
                     const shelfLifeMax = productArray.find(obj => obj.DOP_Refrigerate_Max !== undefined)?.DOP_Refrigerate_Max ?? 'N/A';
+                    const subName = productArray.find(obj => obj.Name_subtitle !== undefined)?.Name_subtitle ?? '';
+                    const metricUnit = productArray.find(obj => obj.DOP_Refrigerate_Metric !== undefined)?.DOP_Refrigerate_Metric ?? '';
 
                     fullListArray.push({ 
-                        name: itemName, 
+                        name: itemName,
+                        subName: subName,
                         min: shelfLifeMin, 
-                        max: shelfLifeMax 
+                        max: shelfLifeMax, 
+                        metric: metricUnit
                     });
                 }
             })
@@ -93,7 +97,12 @@ function alphabetList(event) {
                 if (selectedRange.includes(firstLetter)) {
                     const option = document.createElement('option');
                     option.value = item.name;
-                    option.textContent = `${item.name} - Suggested Shelf Life: ${item.min} to ${item.max} Days`;
+                    if (item.subName) {
+                        option.textContent = `${item.name}: ${item.subName} - Suggested Shelf Life: ${item.min} to ${item.max} ${item.metric}`;
+                    }
+                    else {
+                        option.textContent = `${item.name} - Suggested Shelf Life: ${item.min} to ${item.max} ${item.metric}`;
+                    }
                     letterList.appendChild(option);
                 }
             });
@@ -108,30 +117,44 @@ dropdownSelect.addEventListener('change', alphabetList);
 letterSelect.addEventListener('change', alphabetList);
 
 /* Add selected item to stock list */
-function pushItemToStock() {
-    const selectedOption = letterList.options[letterList.selectedIndex].value;
-    const itemName = selectedOption.value;
+function pushItemToStock(event) {
+    event.preventDefault(); 
+    
+    const selectedOption = letterList.options[letterList.selectedIndex];
 
-    const shelfLifeInfo = selectedOption.textContent.match(/Suggested Shelf Life: (\d+) to (\d+) Days/);
-    let suggestedUse = 'N/A';
-    if (shelfLifeInfo) {
-        const minDays = parseInt(shelfLifeInfo[1]);
-        const maxDays = parseInt(shelfLifeInfo[2]);
-        suggestedUse = `${minDays}-${maxDays} days`;
-    }
+    const [namePart, _] = selectedOption.textContent.split(' - Suggested Shelf Life: ');
+    const [itemName, subName] = namePart.split(': ');
+
+    const shelfLifeInfo = selectedOption.textContent.match(/Suggested Shelf Life: (\d+) to (\d+)\s*(\w+)/);
+    
+    if (!shelfLifeInfo) return;
+
+    const minLife = parseInt(shelfLifeInfo[1]);
+    const maxLife = parseInt(shelfLifeInfo[2]);
+    const lifeMetric = shelfLifeInfo[3];
+
 
     const newItem = {
         name: itemName,
-        suggestedUse: suggestedUse,
-        quantity: 1,
-        unit: 'pcs'
-    };
+        subName: subName,
+        shelfLifeMin: Number(minLife),
+        shelfLifeMax: Number(maxLife), 
+        lifeMetric: lifeMetric,
+        shelfLifeRemaining: maxLife
+    }; 
 
     stockFridge.push(newItem);
     renderStock();
 }
 
 addBtn.addEventListener('click', pushItemToStock);
+
+function cancelAddItem() {
+    addList.style.display = 'none';
+    initialForm.style.display = 'block';
+}
+
+cancelBtn.addEventListener('click', cancelAddItem);
 
 /* Stock and expire list display */
 function renderStock() {
@@ -151,7 +174,7 @@ function renderStock() {
 
             const itemName = document.createElement('span');
             itemName.className = 'item-name';
-            itemName.textContent = `${item.name}`;
+            itemName.textContent = `${item.name}: ${item.subName}`;
 
             itemElement.appendChild(itemName);
             document.querySelector('.stock-item').appendChild(itemElement);
@@ -186,34 +209,23 @@ function renderExpire() {
 };
 renderExpire();
 
-/* Check expire items */
-function checkExpireItems() {
-    expireFridge = stockFridge.filter(item => {
-        const suggestedUseDays = parseInt(item.suggestedUse);
-        return suggestedUseDays <= 7; 
+/* Check days left */
+function updateShelfLife() {
+    expireFridge = []; 
+
+    stockFridge.forEach(item => {
+        if (item.shelfLifeRemaining >= 7) {
+            item.shelfLifeRemaining -= 1; 
+        }
+        else if (item.shelfLifeRemaining > 0 && item.shelfLifeRemaining < 7) {
+            item.shelfLifeRemaining -= 1; 
+            expireFridge.push(item);
+        }
+        else {
+            item.shelfLifeRemaining = 0;
+            expireFridge.push(item);
+        }
     });
+    renderStock();
     renderExpire();
 }
-setInterval(checkExpireItems, 86400000); 
-
-
-/*
-if (expireFridge.length === 0) {
-    const noItemElement = document.createElement('div');
-    noItemElement.className = 'no-item';
-    noItemElement.textContent = 'No items expiring.';
-    document.querySelector('.expire-item').appendChild(noItemElement);
-}; 
-
-expireFridge.forEach(item => {
-    const itemElement = document.createElement('div');
-    itemElement.className = 'item-expireing';
-    itemElement.innerHTML = `
-        <span class="item-name">${item.name}</span>
-        <progress value = ${item.suggestedUse} class="item-quantity"></progress>
-        <span class="item-amound">${item.quantity} ${item.unit}</span>
-        <span class="item-status">${item.status}</span>
-    `;
-    document.querySelector('.expire-item').appendChild(itemElement);
-});
-*/
