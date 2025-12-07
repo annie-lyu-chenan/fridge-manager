@@ -11,7 +11,16 @@
     <!-- LINK TO NORMALIZE (FOR CONSISTENCY) -->
     <link rel="stylesheet" href="styles/normalize.css" />
     <!-- LINK TO ANY FRAMEWORK STYLES HERE-->
-    
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
     <!-- LINK TO YOUR STYLES -->
     <link rel="stylesheet" href="styles/styles.css" />
     <!-- LINK TO EXTERNAL JS LIBRARIES HERE -->
@@ -27,68 +36,93 @@
       
         <nav>
             <ul>
-                <li><a href = "index.html">Home</a></li>
-                <li><a href = "https://www.figma.com/design/atDvsj2wyJdp6e204W1uOP/Wireframes?node-id=0-1&t=xlZVMmpzdAMhpnxZ-1">Project Documents</a></li>
-                <li><a href = "about.html">About</a></li>
+                <li id = 'home'><a href = "index.html">Home</a></li>
+                <li id = 'doc'><a href = "https://www.figma.com/design/atDvsj2wyJdp6e204W1uOP/Wireframes?node-id=0-1&t=xlZVMmpzdAMhpnxZ-1">Documents</a></li>
+                <li id = 'info'><a href = "about.html">About</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class = "index-freezer">
-        <div id = "intro-text">
+    <main>
+        <div class = "index-freezer">
+          <div id = "intro-text">
             <h1>Know your fridge.</h1>
             <p>Clarity in the fridge brings clarity in life. Track your groceries, reduce waste, and bring a sense of order to your life with FridgeMate. </p>
-        </div>
+          </div>
         
 
-        <div id="search-bar">
+          <div id="search-bar">
             <form id="initial-state">
-                <input type="text" placeholder="Add what's in your bag today. ">
-                <button>Get Started</button>
+              <input type="text" placeholder="Select what's in your bag today. " readonly>
             </form>
 
             <form id="dropdown-state" style="display: none">
-                <select></select>
-                <button>Add to List</button>
+                <select id = 'category-select'>
+                  <option id = 'baby-food'>Baby Food</option>
+                  <option id = 'baked-goods'>Baked Goods</option>
+                  <option id = 'beverages'>Beverages</option>
+                  <option id = 'dairy-and-eggs'>Dairy Products & Eggs</option>
+                  <option id = 'grain-and-beans'>Grains, Beans & Pasta</option>
+                  <option id = 'meat'>Meat</option>
+                  <option id = 'poultry'>Poultry</option>
+                  <option id = 'produce'>Produce</option>
+                  <option id = 'seafood'>Seafood</option>
+                </select>
             </form>
-        </div>
 
-        <div id="homepage-stock">
+            <form id = 'full-list' style="display: none">
+              <select id = 'alphabet-select'>
+                <option value = 'ad'>A-D</option>
+                <option value = 'eh'>E-H</option>
+                <option value = 'il'>I-L</option>
+                <option value = 'mp'>M-P</option>
+                <option value = 'qt'>Q-T</option>
+                <option value = 'ux'>U-X</option>
+                <option value = 'yz'>Y-Z</option>
+              </select>
+
+              <select id = 'alphabet-list'></select>
+              
+              <div class = 'button-container'>
+                <button id = 'add-btn'>Add Item</button>
+                <button id = 'cancel-btn'>Cancel</button>
+              </div>
+            
+            </form>
+          </div>
+
+          <div id="homepage-stock">
             <section class = "in-stock">
               <h3>In Stock</h3>
-              <div class = "stock-item">
-                  <span class = "item-name"></span>
-                  <progress value = "" max = "100"></progress>
-                  <span class = "item-amount"></span>
-              </div>
+              <div class = "stock-item"></div>
             </section>
 
             <section class = "expire">
               <h3>Save Me This Week!!!</h3>
-              <div class = "expire-item">
-                  <span class = "item-name"></span>
-                  <progress value = "" max = "100"></progress>
-                  <span class = "item-status"></span>
-              </div>
+              <div class = "expire-item"></div>
             </section>
+          </div>
 
-            <section class = "info">
+<!--
+          <section class = "info">
               <figure>
-                <img src="images/food.png" alt="Image of noodles, pizza, and hamburger" />
+                  <img src="images/food.png" alt="Image of noodles, pizza, and hamburger" />
               </figure>
               <a href = "calculator.html">Learn more about the food you have saved. </a>
-            </section>
-        </div>
+          </section>
+-->
 
-        <div class = "tab-container" id = "fridge-freezer">
-            <a href = "index.html">
-                <button id = "fridge-btn" >Fridge</button>
-            </a>
-            <div class = "divider">|</div>
-            <a href = "freezer.html">
-                <button id = "freezer-btn">Freezer</button>
-            </a>
-        </div>
+          <div class = "tab-container" id = "fridge-freezer">
+              <a href = "index.html">
+                  <button id = "fridge-btn" >Fridge</button>
+              </a>
+              <div class = "divider">|</div>
+              <a href = "freezer.html">
+                  <button id = "freezer-btn">Freezer</button>
+              </a>
+          </div>
+
+      </div>
     </main>
     <!-- YOUR EXTERNAL PLUG-IN MAY ASK YOU TO PUT A SCRIPT TAG HERE. -->
   </body>

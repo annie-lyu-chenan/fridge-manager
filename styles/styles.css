@@ -97,6 +97,7 @@ h3 {
     text-align: left;
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
+    font-weight: 300;
     max-width: 50%;
     margin-left: auto;
     margin-right: auto;
@@ -118,7 +119,9 @@ input[type = "text"] {
     padding: 0 1rem;
     flex: 1;
     height: 2rem;
-    width: 300px;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #F2F2F2;
     border-radius: 5px;
     border-style: none;
@@ -186,7 +189,7 @@ button:hover {
     width: 100%;
     height: 1rem;
     border-radius: 10px;
-    margin: 1rem 0;
+    margin: 0 0 1rem 0;
 }
 
 .stock-item .shelf-life-bar-progress {
@@ -201,7 +204,7 @@ button:hover {
     width: 100%;
     height: 1rem;
     border-radius: 10px;
-    margin: 1rem 0;
+    margin: 0 0 1rem 0;
 }
 
 .expire-item .shelf-life-bar-progress {
@@ -210,11 +213,46 @@ button:hover {
     border-radius: 10px;
 }
 
+.stock-item .item-days-left {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 0.7rem;
+    color: #00A652;
+}
+
+.expire-item .item-days-left {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 0.7rem;
+    color: #F21213;
+}
+
+.item-days-left.expired-text {
+    color: #D9D9D9;
+}
+
+.shelf-life-bar-container.expired-container {
+    border: 1px solid #D9D9D9;
+    background-color: #F2F2F2;
+}
+
+.shelf-life-bar-progress.expired-progress {
+    background-color: #D9D9D9;
+}
+
+.item-name {
+    margin-top: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #1A1A1A;
+}
+
 @media (max-width: 860px) {
     #homepage-stock, 
     #intro-text p, 
     #search-bar {
-        max-width: 80%;
+        max-width: 83%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -261,26 +299,19 @@ button:hover {
 }
 
 div.expire-item {
-    grid-area: expire;
-    grid-row: 1 / 3;
-    align-self: stretch;
     border-radius: 5px;
     border: 1px solid #F21213;
     padding: 1.5rem;
 }
 
 div.stock-item {
-    grid-area: stock-item;
     border-radius: 5px;
-    border: 1px solid #0988D5;
+    border: 1px solid #00A652;
     padding: 1.5rem;
 }
 
-.shelf-life-bar-stock {
-    background-color: #C6EAD3;
-    width: 30%;
-    height: 1rem;
-    border-radius: 5px;
+.expire h3 {
+    margin-top: 2rem;
 }
 
 /*
@@ -324,7 +355,8 @@ div.divider {
 }
 
 div.tab-container {
-    margin-top: 2rem;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
 }
 
 .index div.tab-container #freezer-btn {
@@ -333,6 +365,10 @@ div.tab-container {
 
 .index-freezer div.tab-container #fridge-btn {
     background-color: #FFFFFF;
+}
+
+.index-freezer div.tab-container #freezer-btn {
+    background-color: #D9D9D9;
 }
 
 .no-item {
