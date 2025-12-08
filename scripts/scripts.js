@@ -58,6 +58,7 @@ inputWord.addEventListener('click', handleInitialSubmit);
 /* Get items list from API and sort by alphabet range */ 
 function alphabetList(event, mode) {
     if (event) event.preventDefault();
+    mode = currentMode;
     
     const optionID = dropdownSelect.options[dropdownSelect.selectedIndex].id;
     const allCategoryID = categoryMap[optionID].ids;
