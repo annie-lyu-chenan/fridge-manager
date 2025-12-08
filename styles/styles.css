@@ -301,11 +301,17 @@ button:hover {
 
 @media (max-width: 860px) {
     #homepage-stock, 
-    #intro-text p, 
+    #intro-text p,  
     #search-bar {
         max-width: 83%;
         margin-left: auto;
         margin-right: auto;
+    }
+}
+
+@media (max-width: 500px) {
+    #intro-text p {
+        max-width: 90%;
     }
 }
 
