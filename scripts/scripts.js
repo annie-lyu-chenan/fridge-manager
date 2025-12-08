@@ -50,6 +50,8 @@ function handleInitialSubmit(event) {
 
     initialForm.style.display = 'none';
     dropdownForm.style.display = 'block';
+
+    alphabetList(null, currentMode);
 };
 
 inputWord.addEventListener('click', handleInitialSubmit);
@@ -57,7 +59,6 @@ inputWord.addEventListener('click', handleInitialSubmit);
 /* Get items list from API and sort by alphabet range */ 
 function alphabetList(event, mode) {
     if (event) event.preventDefault();
-    currentMode = mode;
     
     const optionID = dropdownSelect.options[dropdownSelect.selectedIndex].id;
     const allCategoryID = categoryMap[optionID].ids;
