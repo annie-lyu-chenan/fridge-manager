@@ -13,7 +13,7 @@ const fridgeBtn = document.querySelector('#fridge-btn');
 const freezerBtn = document.querySelector('#freezer-btn');
 const colorBlindSwitchLeft = document.querySelector('#color-blind-container .ph-toggle-left');
 const colorBlindSwitchRight = document.querySelector('#color-blind-container .ph-toggle-right');
-let currentMode = ''; 
+let currentMode = 'Refrigerate'; 
 /*stock management*/
 let expireFridge = [];
 let expireFreezer = [];
@@ -51,7 +51,6 @@ function handleInitialSubmit(event) {
     initialForm.style.display = 'none';
     dropdownForm.style.display = 'block';
 
-    alphabetList(null, currentMode);
 };
 
 inputWord.addEventListener('click', handleInitialSubmit);
