@@ -146,6 +146,56 @@ button:hover {
     cursor: pointer;
 }
 
+.color-blind-wrap {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 2rem;
+}
+
+
+#color-blind-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+}
+
+#color-blind-container i {
+    color: #8C8C8C;
+    font-size: 1.5rem;
+}
+
+#color-blind-container p {
+    color: #8C8C8C;
+    font-size: 0.9rem;
+}
+
+.color-blind-mode #color-blind-container p {
+    color: #0988D5;
+}
+
+.color-blind-mode #color-blind-container i {
+    color: #0988D5;
+}
+
+.color-blind-mode .stock-item {
+    border: 1px solid #0988D5;
+}
+
+.color-blind-mode .stock-item .shelf-life-bar-container {
+    background-color: #F2F2F2; 
+    border: 1px solid #C9E3FA;
+}
+
+.color-blind-mode .stock-item .shelf-life-bar-progress {
+    background-color: #0988D5;
+}
+
+.color-blind-mode .stock-item .item-days-left {
+    color: #0988D5;
+}
+
 #homepage-stock {
     display: flex;
     flex-direction: column;

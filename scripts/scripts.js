@@ -11,6 +11,8 @@ const letterList = document.querySelector('#alphabet-list');
 const cancelBtn = document.querySelector('#full-list #cancel-btn');
 const fridgeBtn = document.querySelector('#fridge-btn');
 const freezerBtn = document.querySelector('#freezer-btn');
+const colorBlindSwitchLeft = document.querySelector('#color-blind-container .ph-toggle-left');
+const colorBlindSwitchRight = document.querySelector('#color-blind-container .ph-toggle-right');
 let currentMode = ''; 
 /*stock management*/
 let expireFridge = [];
@@ -446,3 +448,16 @@ function clearStock() {
 }
 clearStock();
 */
+
+/* color blind mode toggle */
+colorBlindSwitchLeft.addEventListener('click', () => {
+    document.body.classList.add('color-blind-mode');
+    colorBlindSwitchLeft.style.display = 'none';
+    colorBlindSwitchRight.style.display = 'inline-block';
+});
+
+colorBlindSwitchRight.addEventListener('click', () => {
+    document.body.classList.remove('color-blind-mode');
+    colorBlindSwitchRight.style.display = 'none';
+    colorBlindSwitchLeft.style.display = 'inline-block';
+});
