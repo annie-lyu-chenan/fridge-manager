@@ -13,7 +13,7 @@ const fridgeBtn = document.querySelector('#fridge-btn');
 const freezerBtn = document.querySelector('#freezer-btn');
 const colorBlindSwitchLeft = document.querySelector('#color-blind-container .ph-toggle-left');
 const colorBlindSwitchRight = document.querySelector('#color-blind-container .ph-toggle-right');
-let currentMode = 'Refrigerate'; 
+let currentMode = ''; 
 /*stock management*/
 let expireFridge = [];
 let expireFreezer = [];
@@ -38,7 +38,7 @@ const historyWords = [
 ];
 */
 
-if (window.location.pathname.includes('index.html')) {
+if (!window.location.pathname.includes('freezer.html')) {
     currentMode = 'Refrigerate';
 } 
 else if (window.location.pathname.includes('freezer.html')) {
