@@ -117,7 +117,7 @@ h3 {
     gap: 0.75rem;
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 input[type = "text"] {   
@@ -125,12 +125,18 @@ input[type = "text"] {
     padding: 0 1rem;
     flex: 1;
     height: 2rem;
-    width: 250px;
+    width: 350px;
     margin-left: auto;
     margin-right: auto;
     background-color: #F2F2F2;
     border-radius: 5px;
     border-style: none;
+}
+
+@media (max-width: 650px) {
+    input[type = "text"] {
+        width: 290px; 
+    }
 }
 
 button {
@@ -304,6 +310,15 @@ button:hover {
     color: #1A1A1A;
 }
 
+#expire-item-count,
+#stock-item-count {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    margin: 0.5rem 0 0 0;
+    text-align: end;
+}
+
 @media (max-width: 860px) {
     #homepage-stock, 
     #intro-text p,  
@@ -418,7 +433,7 @@ div.divider {
 }
 
 div.tab-container {
-    margin-top: 5rem;
+    margin-top: 3rem;
     margin-bottom: 3rem;
 }
 
@@ -474,6 +489,11 @@ main div.about {
     text-decoration: underline;
     color: #F21213;
     cursor: pointer;
+}
+
+#docs h2 {
+    padding: 0;
+    margin: 0 0 1rem 0;
 }
 
 .about a {

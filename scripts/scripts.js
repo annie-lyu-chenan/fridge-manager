@@ -309,6 +309,7 @@ function renderStock() {
             */
         });
     };
+    document.querySelector('#stock-item-count').textContent = `Total Items: ${stockList.length}`;
 };
 renderStock();
 
@@ -371,8 +372,10 @@ function renderExpire() {
 
             contentBox.appendChild(itemShelfLife);
             itemShelfLife.appendChild(shelfLifeBar);
+
         });
     };
+    document.querySelector('#expire-item-count').textContent = `Total Items: ${expireList.length}`;
 };
 renderExpire();
 
