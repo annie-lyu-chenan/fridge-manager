@@ -324,6 +324,14 @@ function renderExpire() {
         document.querySelector('.expire-item').appendChild(noItemElement);
     }
 
+    /* Push notification 
+    if (Notification.permission === "granted") {
+        const title = "Items Expiring Soon!";
+        const message = `You have ${expireList.length} item(s) expiring soon.`;
+        new Notification(title, { body: message });
+    }
+    */
+
     else {
         expireList.forEach(item => {
             const itemElement = document.createElement('div');
@@ -393,6 +401,7 @@ function deleteItem(name, subName = '') {
         storageKey = 'stockFreezer';
     }
 
+    /* How to make it delete the single item even there are multiple same items? */
     const updatedStock = stockList.filter(item => !(item.name === name && item.subName === subName));
     const updatedExpire = expireList.filter(item => !(item.name === name && item.subName === subName));
 

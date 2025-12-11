@@ -133,7 +133,7 @@ input[type = "text"] {
     border-style: none;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 550px) {
     input[type = "text"] {
         width: 290px; 
     }
@@ -215,7 +215,8 @@ button:hover {
     align-items: stretch;
     flex-wrap: wrap;
     margin-bottom: 2rem;
-    max-width: 50%;
+    width: 30vw;
+    max-width: 30vw;
     margin-left: auto;
     margin-right: auto;
 }
@@ -223,26 +224,44 @@ button:hover {
 .stock-item,
 .expire-item {
     display: flex;
-    overflow-x: auto; 
+    overflow-x: scroll; 
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth; 
     box-sizing: border-box;
     box-shadow: #D9D9D9 2px 5px 5px;
+    width: 30vw;
+    max-width: 30vw;
+}
+
+@media (max-width: 1100px) {
+    #homepage-stock {
+        width: 50vw;
+        max-width: 50vw;
+    }
+    .stock-item,
+    .expire-item {
+        width: 50vw;
+        max-width: 50vw;
+    }
+}
+
+@media (max-width: 600px) {
+    #homepage-stock {
+        width: 75vw;
+        max-width: 75vw;
+    }
+    .stock-item,
+    .expire-item {
+        width: 75vw;
+        max-width: 75vw;
+    }
 }
 
 .item-instock,
 .item-expiring {
-    flex: 0 0 auto;
+    flex: 0 0 100%;
     scroll-snap-align: start;
     padding: 0 1rem;
-    width: 100%;
-}
-
-@media (max-width: 600px) {
-    .stock-item,
-    .expire-item {
-        width: 70vw;
-    }
 }
 
 .stock-item .item-content,
