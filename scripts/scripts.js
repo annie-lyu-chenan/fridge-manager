@@ -401,19 +401,17 @@ function deleteItem(name, subName = '') {
         storageKey = 'stockFreezer';
     }
 
-    /* How to make it delete the single item even there are multiple same items? */
-    const updatedStock = stockList.filter(item => !(item.name === name && item.subName === subName));
-    const updatedExpire = expireList.filter(item => !(item.name === name && item.subName === subName));
-
-    if (currentMode === 'Refrigerate') {
-        stockFridge = updatedStock;
-        expireFridge = updatedExpire;
-    } else {
-        stockFreezer = updatedStock;
-        expireFreezer = updatedExpire;
+    /* How to make it delete the single item even there are multiple same items? Resolved */
+    const stockIndex = stockList.findIndex(item => item.name === name && item.subName === subName);
+    if (stockIndex !== -1) {
+        stockList.splice(stockIndex, 1);
+        localStorage.setItem(storageKey, JSON.stringify(stockList));
     }
 
-    localStorage.setItem(storageKey, JSON.stringify(updatedStock));
+    const expireIndex = expireList.findIndex(item => item.name === name && item.subName === subName);
+    if (expireIndex !== -1) {
+        expireList.splice(expireIndex, 1);
+    }
 
     renderStock();
     renderExpire();

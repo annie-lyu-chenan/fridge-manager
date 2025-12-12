@@ -60,6 +60,7 @@ main {
     border-radius: 20px 20px 0 0;
     margin-bottom: 5rem;
     margin-top: 1rem;
+    animation: floatInUp 1s ease-out forwards;
 }
 
 main > div {
@@ -131,6 +132,7 @@ input[type = "text"] {
     background-color: #F2F2F2;
     border-radius: 5px;
     border-style: none;
+    box-shadow: #D9D9D9 2px 5px 5px;
 }
 
 @media (max-width: 550px) {
@@ -231,6 +233,26 @@ button:hover {
     box-shadow: #D9D9D9 2px 5px 5px;
     width: 30vw;
     max-width: 30vw;
+    transform: translateY(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.stock-item:hover,
+.expire-item:hover {
+    transform: translateY(-0.2rem);
+    animation: 1s ease-out forwards;
+}
+
+@keyframes floatInUp {
+  0% {
+    opacity: 0.5;
+    transform: translateY(-0.2rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 1100px) {
@@ -259,9 +281,10 @@ button:hover {
 
 .item-instock,
 .item-expiring {
-    flex: 0 0 100%;
+    flex: 0 0 auto;
     scroll-snap-align: start;
     padding: 0 1rem;
+    width: 100%;
 }
 
 .stock-item .item-content,
@@ -420,6 +443,12 @@ div.stock-item {
     margin-top: 2rem;
 }
 
+#category-select,
+#alphabet-select,
+#alphabet-list {
+    box-shadow: #D9D9D9 2px 5px 5px;
+}
+
 /*
 section.info {
     grid-area: info;
@@ -572,6 +601,7 @@ main div.about {
     width: auto;
     height: 400px;
     border-radius: 5px;
+    box-shadow: #D9D9D9 2px 5px 5px;
 }
 
 #about-project figcaption, 
